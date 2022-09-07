@@ -6,9 +6,13 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Device_Management_API.Models;
+using JWTAuthentication.Authentication;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
 
 namespace Device_Management_API.Controllers
 {
+    [Authorize(Roles = UserRoles.Admin)]
     [Route("api/[controller]")]
     [ApiController]
     public class ZonesController : ControllerBase
@@ -21,6 +25,7 @@ namespace Device_Management_API.Controllers
         }
 
         // GET: api/Zones
+        [Authorize(Roles = UserRoles.Admin)]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Zone>>> GetZones()
         {
@@ -32,6 +37,7 @@ namespace Device_Management_API.Controllers
         }
 
         // GET: api/Zones/5
+        [Authorize(Roles = UserRoles.Admin)]
         [HttpGet("{id}")]
         public async Task<ActionResult<Zone>> GetZone(Guid id)
         {
@@ -51,6 +57,7 @@ namespace Device_Management_API.Controllers
 
         // PUT: api/Zones/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [Authorize(Roles = UserRoles.Admin)]
         [HttpPut("{id}")]
         public async Task<IActionResult> PutZone(Guid id, Zone zone)
         {
@@ -82,6 +89,7 @@ namespace Device_Management_API.Controllers
 
         // POST: api/Zones
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [Authorize(Roles = UserRoles.Admin)]
         [HttpPost]
         public async Task<ActionResult<Zone>> PostZone(Zone zone)
         {
@@ -110,6 +118,7 @@ namespace Device_Management_API.Controllers
         }
 
         // DELETE: api/Zones/5
+        [Authorize(Roles = UserRoles.Admin)]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteZone(Guid id)
         {

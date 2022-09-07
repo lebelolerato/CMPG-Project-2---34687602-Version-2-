@@ -6,9 +6,13 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Device_Management_API.Models;
+using JWTAuthentication.Authentication;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
 
 namespace Device_Management_API.Controllers
 {
+    [Authorize(Roles = UserRoles.Admin)]
     [Route("api/[controller]")]
     [ApiController]
     public class DevicesController : ControllerBase
@@ -21,6 +25,7 @@ namespace Device_Management_API.Controllers
         }
 
         // GET: api/Devices
+        [Authorize(Roles = UserRoles.Admin)]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Device>>> GetDevices()
         {
@@ -32,6 +37,7 @@ namespace Device_Management_API.Controllers
         }
 
         // GET: api/Devices/5
+        [Authorize(Roles = UserRoles.Admin)]
         [HttpGet("{id}")]
         public async Task<ActionResult<Device>> GetDevice(Guid id)
         {
@@ -51,6 +57,7 @@ namespace Device_Management_API.Controllers
 
         // PUT: api/Devices/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [Authorize(Roles = UserRoles.Admin)]
         [HttpPut("{id}")]
         public async Task<IActionResult> PutDevice(Guid id, Device device)
         {
@@ -82,6 +89,7 @@ namespace Device_Management_API.Controllers
 
         // POST: api/Devices
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [Authorize(Roles = UserRoles.Admin)]
         [HttpPost]
         public async Task<ActionResult<Device>> PostDevice(Device device)
         {
@@ -110,6 +118,7 @@ namespace Device_Management_API.Controllers
         }
 
         // DELETE: api/Devices/5
+        [Authorize(Roles = UserRoles.Admin)]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteDevice(Guid id)
         {
